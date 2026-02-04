@@ -6,7 +6,7 @@ argument-hint: <feature-name>
 
 ## Current Spec Status
 
-!`ls -la spec/ 2>/dev/null | grep "^d" | wc -l | xargs -I {} echo "Total specs: {}"`
+Existing specs: !`ls spec/ 2>/dev/null || echo "No spec directory"`
 
 ## Your Task
 

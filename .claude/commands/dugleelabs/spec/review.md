@@ -8,9 +8,11 @@ argument-hint: requirements|design|tasks
 
 Current spec: !`cat spec/.current-spec 2>/dev/null || echo "No active spec"`
 
-Spec files: !`current=$(cat spec/.current-spec 2>/dev/null); [ -n "$current" ] && ls "spec/$current/" 2>/dev/null || echo "No spec directory"`
-
 ## Your Task
+
+First, list the files in the current spec directory using the Glob tool.
+
+Then, review the **"$ARGUMENTS"** phase document for the current specification.
 
 Review the **"$ARGUMENTS"** phase document for the current specification.
 

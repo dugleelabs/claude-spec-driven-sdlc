@@ -1,16 +1,18 @@
 ---
-allowed-tools: Bash(cat:*), Bash(grep:*), Write
+allowed-tools: Bash(cat:*), Bash(grep:*), Read, Write
 description: Mark a task as complete
 argument-hint: <task-description-or-number>
 ---
 
-## Current Tasks
+## Context
 
-!`cat spec/$(cat spec/.current-spec)/tasks.md | grep -n "^- \[" | head -20`
+Current spec: !`cat spec/.current-spec 2>/dev/null || echo "No active spec"`
 
 ## Your Task
 
-Update the task status for: "$ARGUMENTS"
+First, read the tasks.md file from the current spec directory to see available tasks.
+
+Then, update the task status for: "$ARGUMENTS"
 
 1. Find the matching task in tasks.md
 2. Change `- [ ]` to `- [x]` for that task
