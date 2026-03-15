@@ -1,5 +1,11 @@
 # Claude Spec-Driven SDLC
 
+<p align="center">
+  <strong>Syncs with</strong><br/>
+  <a href="#linear-setup"><img src="https://img.shields.io/badge/Linear-5E6AD2?style=for-the-badge&logo=linear&logoColor=white" alt="Linear" /></a>
+  <a href="#github-setup"><img src="https://img.shields.io/badge/GitHub_Projects-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Projects" /></a>
+</p>
+
 **The future of software development isn't AI writing code for you—it's AI thinking alongside you.**
 
 Traditional SDLC demands extensive documentation, architecture reviews, and project management overhead. Most teams skip it. They jump straight to code, accumulate tech debt, and wonder why projects fail. The discipline exists for good reasons, but the friction is too high.
@@ -267,7 +273,7 @@ Create a `.sync-config.json` at the repo root to set defaults for all specs:
 }
 ```
 
-#### Linear Setup
+#### Linear Setup <a id="linear-setup"></a>
 
 Store your Linear API key in the global credentials file (works across all projects):
 
@@ -295,7 +301,7 @@ Then sync:
 /dugleelabs:spec:sync --provider linear --team ENG
 ```
 
-#### GitHub Setup
+#### GitHub Setup <a id="github-setup"></a>
 
 ```bash
 # Ensure gh CLI is authenticated
