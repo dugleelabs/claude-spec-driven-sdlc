@@ -20,6 +20,9 @@ Current spec: !`cat spec/.current-spec 2>/dev/null`
    - Task dependencies
    - Risk mitigation tasks
 3. Each task should be specific and actionable
-4. Use markdown checkboxes: `- [ ] Task description`
+4. Use markdown checkboxes for parent tasks: `- [ ] **T-XX: Task description**`
+5. Use markdown checkboxes for subtasks too: `- [ ] Subtask description` (indented under parent)
+   - Subtask checkboxes are required for project tracker sync compatibility
+   - Do NOT use plain-text bullets (`- text`) for subtasks
 
 Organize tasks to enable incremental development and testing.
