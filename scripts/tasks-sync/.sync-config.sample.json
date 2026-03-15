@@ -1,0 +1,9 @@
+{
+  "default_provider": "linear",
+  "github": {
+    "owner": "your-org"
+  },
+  "linear": {
+    "team_key": "ENG"
+  }
+}

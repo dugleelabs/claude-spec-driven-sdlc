@@ -27,6 +27,27 @@ For the current active specification:
 3. If it exists, display current content and suggest improvements
 4. Remind user to use `/dugleelabs:spec:approve requirements` when ready
 
+### Optional: Project Tracker
+
+After the "Current State" section, ask the user if they want to configure a project tracker now (or skip until sync time).
+
+If yes, collect:
+1. **Provider**: GitHub Projects or Linear
+2. **Project**: Create new or use existing
+3. **Provider-specific config**: owner (GitHub) or team key (Linear)
+
+Persist the choices as an HTML comment block in the requirements document (invisible in rendered markdown):
+
+```
+<!-- sync-config
+provider: linear
+team_key: ENG
+project: new
+-->
+```
+
+This section is entirely optional — the user can skip and configure at sync time instead.
+
 **Important:** The Current State section should capture:
 - Repository links (main app, API/backend, shared libraries, design system)
 - Tech stack (frontend, backend, database, hosting)
