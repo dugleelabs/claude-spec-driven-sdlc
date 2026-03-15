@@ -64,7 +64,7 @@ The result: **Enterprise-grade engineering discipline at startup speed.**
 ```bash
 # Option 1: Clone into your existing project
 git clone https://github.com/dugleelabs/claude-spec-driven-sdlc.git .claude-sdlc
-cp -r .claude-sdlc/.claude/commands .claude/
+cp -r .claude-sdlc/commands .claude/
 
 # Option 2: Use as a standalone spec repository
 git clone https://github.com/dugleelabs/claude-spec-driven-sdlc.git my-project-specs

@@ -24,7 +24,7 @@ For the phase "$ARGUMENTS":
    - Update current phase to next phase
    - Update next steps
 6. Inform user about next steps:
-   - After requirements → run `/spec:design`
-   - After design → run `/spec:tasks`
-   - After tasks → run `/spec:implement`
+   - After requirements → run `/dugleelabs:spec:design`
+   - After design → run `/dugleelabs:spec:tasks`
+   - After tasks → run `/dugleelabs:spec:implement`
 7. If invalid phase name, show valid options: requirements, design, tasks

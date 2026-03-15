@@ -12,7 +12,7 @@ Current spec: !`cat spec/.current-spec 2>/dev/null`
 1. Read the current spec name from `spec/.current-spec`
 2. Read the spec's README.md to verify design phase is approved
 3. Read requirements.md and design.md to understand the full scope
-4. If design not approved, inform user to run `/spec:approve design` first
+4. If design not approved, inform user to run `/dugleelabs:spec:approve design` first
 5. If approved, create tasks.md with:
    - Overview with time estimates
    - Phase breakdown (Foundation, Core, Testing, Deployment)
