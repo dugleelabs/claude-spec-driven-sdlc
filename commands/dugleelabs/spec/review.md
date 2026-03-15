@@ -156,7 +156,7 @@ After evaluating, provide:
 4. **Recommendations**: Concrete suggestions for improvement
 5. **Missing Items**: Any required sections or content that's missing
 6. **Next Steps**:
-   - If approved: `/spec:approve $ARGUMENTS`
+   - If approved: `/dugleelabs:spec:approve $ARGUMENTS`
    - If needs work: Specific edits required
 
 ---
@@ -164,7 +164,7 @@ After evaluating, provide:
 ## Usage Examples
 
 ```
-/spec:review requirements   # Review requirements document
-/spec:review design         # Review design document
-/spec:review tasks          # Review tasks document
+/dugleelabs:spec:review requirements   # Review requirements document
+/dugleelabs:spec:review design         # Review design document
+/dugleelabs:spec:review tasks          # Review tasks document
 ```

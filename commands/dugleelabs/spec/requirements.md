@@ -25,7 +25,7 @@ For the current active specification:
    - Success metrics
    - Open questions
 3. If it exists, display current content and suggest improvements
-4. Remind user to use `/spec:approve requirements` when ready
+4. Remind user to use `/dugleelabs:spec:approve requirements` when ready
 
 **Important:** The Current State section should capture:
 - Repository links (main app, API/backend, shared libraries, design system)

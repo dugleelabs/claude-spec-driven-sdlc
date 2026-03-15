@@ -12,7 +12,7 @@ Current spec: !`cat spec/.current-spec 2>/dev/null`
 1. Read the current spec name from `spec/.current-spec`
 2. Read the spec's README.md to verify requirements phase is approved
 3. Read requirements.md to understand what needs to be designed
-4. If requirements not approved, inform user to run `/spec:approve requirements` first
+4. If requirements not approved, inform user to run `/dugleelabs:spec:approve requirements` first
 5. If approved, create/update design.md with:
    - Architecture overview (with diagrams)
    - Technology stack decisions

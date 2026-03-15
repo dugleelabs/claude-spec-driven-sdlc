@@ -19,7 +19,7 @@ $ARGUMENTS
 
 1. Read `spec/.current-spec` to get the active spec ID
 2. Verify `spec/<spec-id>/.tasks-approved` exists
-   - If not: Tell user "Tasks not approved. Run `/spec:approve tasks` first."
+   - If not: Tell user "Tasks not approved. Run `/dugleelabs:spec:approve tasks` first."
 3. Read `spec/<spec-id>/requirements.md` to identify target repositories
 4. Read `spec/<spec-id>/tasks.md` to get the task list
 
@@ -91,7 +91,7 @@ For each task:
 2. Identify which repository this task affects based on task context
 3. Implement the task in the correct repository
 4. After completing, update `tasks.md` in the SPEC repository to mark task as done: `- [ ]` → `- [x]`
-5. Optionally run `/spec:update-task T-XXX` to mark complete and sync to GitHub
+5. Optionally run `/dugleelabs:spec:update-task T-XXX` to mark complete and sync to GitHub
 
 ### Step 6: Progress Tracking
 

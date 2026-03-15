@@ -18,10 +18,10 @@ $ARGUMENTS
 Before syncing, verify ALL of these conditions:
 
 1. **Active spec exists**: `spec/.current-spec` must exist
-   - If not: Tell user "No active spec. Run `/spec:switch` or `/spec:new` first."
+   - If not: Tell user "No active spec. Run `/dugleelabs:spec:switch` or `/dugleelabs:spec:new` first."
 
 2. **Tasks approved**: `spec/<spec-id>/.tasks-approved` must exist
-   - If not: Tell user "Tasks not approved. Run `/spec:approve tasks` first."
+   - If not: Tell user "Tasks not approved. Run `/dugleelabs:spec:approve tasks` first."
 
 3. **gh CLI authenticated**: `gh auth status` must succeed
    - If not: Tell user "GitHub CLI not authenticated. Run `gh auth login` first."
@@ -155,8 +155,8 @@ Display summary:
 
 ## Error Handling
 
-- **No active spec**: "No active spec. Run `/spec:switch` or `/spec:new` first."
-- **Tasks not approved**: "Tasks not approved. Run `/spec:approve tasks` first."
+- **No active spec**: "No active spec. Run `/dugleelabs:spec:switch` or `/dugleelabs:spec:new` first."
+- **Tasks not approved**: "Tasks not approved. Run `/dugleelabs:spec:approve tasks` first."
 - **gh not authenticated**: "GitHub CLI not authenticated. Run `gh auth login` first."
 - **Project not found**: List available projects and ask user to specify valid `--project <number>`
 - **API errors**: Display the error and suggest checking permissions
