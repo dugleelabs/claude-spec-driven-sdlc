@@ -152,10 +152,11 @@ claude
 |---------|-------------|
 | `/dugleelabs:spec:new <name>` | Create a new feature specification |
 | `/dugleelabs:spec:requirements` | Create or review requirements document |
-| `/dugleelabs:spec:design` | Create technical design specification |
+| `/dugleelabs:spec:design` | Create technical design specification (feature specs) |
+| `/dugleelabs:spec:research` | Create research specification (competitive analysis, ethos, dispositions) |
 | `/dugleelabs:spec:tasks` | Generate implementation task list |
 | `/dugleelabs:spec:implement [phase]` | Start or continue implementation |
-| `/dugleelabs:spec:approve <phase>` | Approve a phase (requirements\|design\|tasks) |
+| `/dugleelabs:spec:approve <phase>` | Approve a phase (requirements\|design\|research\|tasks) |
 | `/dugleelabs:spec:review` | Review current phase and get feedback |
 | `/dugleelabs:spec:status` | Show all specs and their progress |
 | `/dugleelabs:spec:switch <id>` | Switch to a different specification |
@@ -166,6 +167,27 @@ claude
 ## What Gets Generated
 
 Each spec produces three documents — `requirements.md`, `design.md`, and `tasks.md` — that build on each other through the workflow phases. See [docs/generated-artifacts.md](docs/generated-artifacts.md) for full details on what each contains.
+
+### Research specs (alternate variant)
+
+Not every spec ships code. Competitive analyses, roadmap research, strategy reviews, and architecture spikes produce **decision documents**, not implementations. For these, use `/dugleelabs:spec:research` in place of `/dugleelabs:spec:design`:
+
+```
+/dugleelabs:spec:new my-research-topic
+/dugleelabs:spec:requirements
+/dugleelabs:spec:approve requirements
+
+/dugleelabs:spec:research              # produces research.md — not design.md
+/dugleelabs:spec:review research       # self-audit against the research checklist
+/dugleelabs:spec:approve research
+
+# Research specs skip /tasks and /implement.
+# For each candidate classified as "pillar" or "feature worth pursuing"
+# in research.md, create a follow-up spec:
+/dugleelabs:spec:new <follow-up-name>
+```
+
+`research.md` includes an executive summary, ethos pillars + anti-pillars, competitive landscape with citations, community signals, candidate critiques, dispositions (pillar / feature / deferred / dropped), and a consolidated references section. Sourcing is enforced: every non-trivial claim carries an inline citation.
 
 ## Directory Structure
 
