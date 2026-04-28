@@ -10,6 +10,7 @@ args:
 ## Current Spec Status
 
 Existing specs: !`ls spec/ 2>/dev/null || echo "No spec directory"`
+Today's date: !`date +%Y-%m-%d`
 
 ## Your Task
 
@@ -19,8 +20,8 @@ Create a new specification directory for the feature: {{feature_name}}
 2. Create directory: `spec/[ID]-{{feature_name}}/`
 3. Update `spec/.current-spec` with the new spec directory name ([ID]-{{feature_name}})
 4. Create a README.md in the new directory with:
-   - Feature name
-   - Creation date
+   - Feature name: {{feature_name}}
+   - Creation date: use the "Today's date" value shown above
    - Initial status checklist
 5. Inform the user about next steps
 
