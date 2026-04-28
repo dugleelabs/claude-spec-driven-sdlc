@@ -31,4 +31,4 @@ For the current active specification:
 3. If it exists, display current content and suggest improvements
 4. Remind user to use `/dugleelabs:spec:approve requirements` when ready
 
-Use the Write tool to create/update the requirements.md file. Do not ask the user any questions before writing.
+Use the Write tool to create/update the requirements.md file.
