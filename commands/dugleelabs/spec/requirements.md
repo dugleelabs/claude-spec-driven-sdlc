@@ -15,8 +15,6 @@ Feature context: {{feature_context}}
 
 ## Your Task
 
-The feature context above contains all project background you need. Do NOT ask the user for any additional context.
-
 For the current active specification:
 
 1. Check if `spec/<current-spec>/requirements.md` exists (use the spec directory listing shown above)
