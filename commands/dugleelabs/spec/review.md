@@ -1,7 +1,10 @@
 ---
 allowed-tools: Bash(cat:*), Bash(test:*), Bash(ls:*), Read, Glob
 description: Review a specification phase (requirements, design, research, or tasks)
-argument-hint: requirements|design|research|tasks
+args:
+  - name: phase
+    description: "Phase to review: requirements, design, research, or tasks"
+    required: true
 ---
 
 ## Context
@@ -12,9 +15,9 @@ Current spec: !`cat spec/.current-spec 2>/dev/null || echo "No active spec"`
 
 First, list the files in the current spec directory using the Glob tool.
 
-Then, review the **"$ARGUMENTS"** phase document for the current specification.
+Then, review the **"{{phase}}"** phase document for the current specification.
 
-Review the **"$ARGUMENTS"** phase document for the current specification.
+Review the **"{{phase}}"** phase document for the current specification.
 
 If no argument provided or invalid argument, show usage and list available phases (requirements, design, research, tasks).
 
@@ -195,7 +198,7 @@ After evaluating, provide:
 4. **Recommendations**: Concrete suggestions for improvement
 5. **Missing Items**: Any required sections or content that's missing
 6. **Next Steps**:
-   - If approved: `/dugleelabs:spec:approve $ARGUMENTS`
+   - If approved: `/dugleelabs:spec:approve {{phase}}`
    - If needs work: Specific edits required
 
 ---

@@ -1,7 +1,10 @@
 ---
 allowed-tools: Bash(ls:*), Read, Edit, Glob
 description: Approve a specification phase
-argument-hint: requirements|design|research|tasks
+args:
+  - name: phase
+    description: "Phase to approve: requirements, design, research, or tasks"
+    required: true
 ---
 
 ## Context
@@ -10,7 +13,7 @@ Current spec: !`cat spec/.current-spec 2>/dev/null`
 
 ## Your Task
 
-For the phase "$ARGUMENTS":
+For the phase "{{phase}}":
 
 1. Read the current spec name from `spec/.current-spec`
 2. List the spec directory contents using Glob or Bash ls

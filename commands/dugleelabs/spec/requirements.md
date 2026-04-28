@@ -1,11 +1,17 @@
 ---
 allowed-tools: Bash(cat:*), Bash(test:*), Bash(touch:*), Bash(ls:*), Write
 description: Create or review requirements specification
+args:
+  - name: feature_context
+    description: "Brief context about the feature: what it does, the tech stack involved, and any relevant constraints"
+    required: true
 ---
 
 ## Context
 
 Current spec: !`cat spec/.current-spec 2>/dev/null || echo "No active spec"`
+
+Feature context: {{feature_context}}
 
 ## Your Task
 
@@ -16,7 +22,7 @@ For the current active specification:
 1. Check if requirements.md exists
 2. If not, create a comprehensive requirements.md with:
    - Feature overview (problem statement, goals)
-   - **Current State brief** (tech stack, existing auth, security posture, engineering standards) - Ask user to provide this context
+   - **Current State brief** — use the feature context provided above: {{feature_context}}
    - User stories with acceptance criteria
    - Functional requirements (P0, P1, P2)
    - Non-functional requirements

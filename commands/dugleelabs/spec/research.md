@@ -1,11 +1,17 @@
 ---
 allowed-tools: Bash(ls:*), Read, Write, Glob, WebSearch, WebFetch
 description: Create a research specification — produces a constructive, decision-enabling report (competitive analysis, ethos, candidate critiques, dispositions)
+args:
+  - name: research_topic
+    description: "The research focus area or question (e.g. 'small model tool-calling patterns' or 'competitor auth approaches')"
+    required: true
 ---
 
 ## Context
 
 Current spec: !`cat spec/.current-spec 2>/dev/null`
+
+Research topic: {{research_topic}}
 
 ## Your Task
 
