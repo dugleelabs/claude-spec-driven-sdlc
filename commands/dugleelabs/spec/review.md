@@ -190,16 +190,14 @@ If reviewing **tasks**, evaluate against these criteria:
 
 ## Step 3: Generate Review Report
 
-After evaluating, provide:
+After evaluating, provide a **concise** report — target 300–500 words total. Do not repeat or summarise the full document. Focus only on what matters for a go/no-go decision.
 
-1. **Summary**: Overall assessment (Ready / Needs Work / Major Issues)
-2. **Strengths**: What's well done
-3. **Issues Found**: Specific problems with line references
-4. **Recommendations**: Concrete suggestions for improvement
-5. **Missing Items**: Any required sections or content that's missing
-6. **Next Steps**:
-   - If approved: `/dugleelabs:spec:approve {{phase}}`
-   - If needs work: Specific edits required
+1. **Verdict**: One line — `Ready` / `Needs Work` / `Major Issues`
+2. **Top strengths** (2–3 bullets max, one line each)
+3. **Issues** (P0 blockers first, then P1 improvements — max 5 total, each with a line reference and a concrete fix)
+4. **Next step**: single command to run, or the one edit required before approval
+
+If you have more than 5 issues, rank by impact and list only the top 5. Ask the user if they want the full list.
 
 ---
 
