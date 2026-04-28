@@ -25,4 +25,4 @@ Current spec: !`cat spec/.current-spec 2>/dev/null`
    - Subtask checkboxes are required for project tracker sync compatibility
    - Do NOT use plain-text bullets (`- text`) for subtasks
 
-Organize tasks to enable incremental development and testing.
+If scope, phasing, or sequencing priorities are unclear, ask the user before writing. Organize tasks to enable incremental development and testing.

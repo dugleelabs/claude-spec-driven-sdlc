@@ -24,4 +24,4 @@ Current spec: !`cat spec/.current-spec 2>/dev/null`
    - Technical risks and mitigations
 4. Use ASCII art or mermaid diagrams where helpful
 
-Use the Write tool to create the design document.
+If any architectural or technology decisions are unclear from the requirements, ask the user before writing. Use the Write tool to create the design document.
