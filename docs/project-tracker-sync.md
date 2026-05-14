@@ -2,18 +2,20 @@
 
 Sync your tasks to a project tracker for team visibility. Supports **GitHub Projects** and **Linear**, with a provider-based architecture that's extensible to other tools.
 
-```bash
-# Sync to Linear (first time — will prompt for team and project)
-/dugleelabs:spec:sync --provider linear
+Just ask Claude — the `spec-sync` skill handles the rest:
 
-# Sync to GitHub Projects
-/dugleelabs:spec:sync --provider github --project 1
+```
+You:    Sync this spec's tasks to Linear.
+        → spec-sync fires, prompts for team and project on first run
 
-# Subsequent syncs use saved config (no flags needed)
-/dugleelabs:spec:sync
+You:    Sync to GitHub Projects, project 1.
+        → spec-sync fires with provider=github
 
-# Preview changes without executing
-/dugleelabs:spec:sync --dry-run
+You:    Sync (subsequent runs).
+        → spec-sync uses saved config from .sync.json — no extra info needed
+
+You:    Show me what would change if I synced now.
+        → spec-sync fires in dry-run mode
 ```
 
 ## How It Works
@@ -75,12 +77,12 @@ export LINEAR_API_KEY=lin_api_xxxxx
 
 Then sync:
 
-```bash
-# Sync will prompt for team and project on first run
-/dugleelabs:spec:sync --provider linear
+```
+You:    Sync this spec to Linear.
+        → spec-sync prompts for team and project on first run
 
-# Or specify explicitly
-/dugleelabs:spec:sync --provider linear --team ENG
+You:    Sync to Linear team ENG.
+        → spec-sync uses the named team directly
 ```
 
 ### GitHub Setup <a id="github-setup"></a>
@@ -88,14 +90,18 @@ Then sync:
 ```bash
 # Ensure gh CLI is authenticated
 gh auth login
+```
 
-# Sync to a specific project
-/dugleelabs:spec:sync --provider github --owner your-org --project 1
+Then sync:
+
+```
+You:    Sync to GitHub Projects in your-org, project 1.
+        → spec-sync uses the named owner and project number
 ```
 
 ## Script Architecture
 
-All API operations are implemented as standalone bash scripts in `scripts/tasks-sync/`. The sync command (Claude) handles parsing, diffing, and decisions — scripts handle deterministic API calls. This saves tokens and makes operations reproducible.
+All API operations are implemented as standalone bash scripts in `scripts/tasks-sync/`. The `spec-sync` skill (Claude) handles parsing, diffing, and decisions — scripts handle deterministic API calls. This saves tokens and makes operations reproducible.
 
 ```
 scripts/tasks-sync/
@@ -127,5 +133,5 @@ The sync system is designed to be extensible. To add a new provider:
    - `create-project.sh` — create a new project
    - `create-issue.sh` — create an issue/item
    - `update-issue-state.sh` — update issue status
-2. Add provider-specific sections to `sync.md` command prompt
+2. Add provider-specific sections to `skills/spec-sync/SKILL.md` (and the relevant `references/*.md` files)
 3. Add the provider option to the configuration resolution chain
