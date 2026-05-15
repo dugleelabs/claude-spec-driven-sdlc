@@ -1,6 +1,6 @@
 # Anthropic adapter — Claude Code
 
-Adapter for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and any agent that implements the [`agentskills.io`](https://agentskills.io/specification) `SKILL.md` standard.
+Adapter for [Claude Code](https://code.claude.com/docs) and any agent that implements the [`agentskills.io`](https://agentskills.io/specification) `SKILL.md` standard.
 
 ## Official documentation
 
@@ -57,5 +57,5 @@ None today. This is the reference adapter — all 12 skills work as designed.
 ## Maintenance notes
 
 - **Watch for:** new required frontmatter fields, changes to `references/` resolution, deprecation of `agentskills.io` field names.
-- **Vendor changelog:** [Claude Code release notes](https://docs.anthropic.com/en/release-notes/claude-code) and the [`code.claude.com` skills docs](https://code.claude.com/docs/en/skills).
+- **Vendor docs:** [code.claude.com/docs](https://code.claude.com/docs) for general Claude Code documentation, and the [Skills docs](https://code.claude.com/docs/en/skills) for the format reference. Re-verify both before each release.
 - **When the vendor changes the format:** update this README's "Format conventions" first, then resync the 12 `SKILL.md` files. Bump the toolkit's version when shipping the change.

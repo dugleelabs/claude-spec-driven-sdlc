@@ -1,11 +1,11 @@
 # Cursor adapter
 
-Adapter for [Cursor](https://cursor.com) — the AI code editor. Ships the 12 SDLC skills as Cursor [Project Rules](https://docs.cursor.com/context/rules) in MDC format.
+Adapter for [Cursor](https://cursor.com) — the AI code editor. Ships the 12 SDLC skills as Cursor [Project Rules](https://cursor.com/docs/context/rules) in MDC format.
 
 ## Official documentation
 
-- [Cursor Rules documentation](https://docs.cursor.com/context/rules) — canonical reference for the MDC format and rule discovery
-- [Cursor documentation home](https://docs.cursor.com)
+- [Cursor Rules documentation](https://cursor.com/docs/context/rules) — canonical reference for the MDC format and rule discovery
+- [Cursor documentation home](https://cursor.com/docs)
 
 ## Install paths
 
@@ -45,5 +45,5 @@ Re-running the command overwrites existing rule files. Cursor auto-discovers rul
 ## Maintenance notes
 
 - **Watch for:** Cursor changing the MDC frontmatter schema (e.g. renaming `alwaysApply`, adding required fields), changing the discovery path away from `.cursor/rules/`, or introducing a file-based user-scope rule store.
-- **Vendor docs:** [Cursor Rules](https://docs.cursor.com/context/rules) — re-verify before each release.
+- **Vendor docs:** [Cursor Rules](https://cursor.com/docs/context/rules) — re-verify before each release.
 - **When the format changes:** update this README's "Format conventions" first, then re-run the MDC-generation step (`agents/anthropic/skills/spec-*/SKILL.md` → `agents/cursor/rules/spec-*.mdc`) so the two adapters stay in sync on body content.
