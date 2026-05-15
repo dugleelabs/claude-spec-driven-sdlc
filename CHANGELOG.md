@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## [Unreleased]
 
-## [1.0.0] - TBD
+## [1.0.0] - 2026-05-16
 
 First multi-agent release. Pivots packaging from Claude-only to model-agnostic. Skill content is unchanged; the new layout and adapters are the work.
 
