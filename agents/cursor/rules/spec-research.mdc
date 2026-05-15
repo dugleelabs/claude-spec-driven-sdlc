@@ -1,0 +1,270 @@
+---
+description: Author a research report (research.md) for specs whose deliverable is a decision, not code — competitive scans, roadmap research, strategy reviews, architecture spikes. Produces ethos pillars, candidate critiques, dispositions, and follow-up spec recommendations with rigorous sourcing. Use ONLY when the user explicitly asks for research after requirements are approved (e.g. "do the research", "write the research doc", "competitive scan", "evaluate candidates"). Use spec-design instead for code-producing feature specs.
+alwaysApply: false
+---
+
+# spec-research
+
+Author a constructive, decision-enabling research report for the active spec.
+
+## What this skill produces
+
+A `research.md` for specs whose output is a decision, not implementation. Common variants:
+- **Competitive scan** — map an existing market, find where we lead/trail
+- **Roadmap research** — decide what to build next and why
+- **Strategy review** — evaluate a direction against alternatives
+- **Architecture spike** — compare approaches before committing
+
+Research specs skip `spec-tasks` and `spec-implement`. The handoff to implementation is a list of follow-up specs (via `spec-new`).
+
+## Inputs to collect
+
+- **Research topic** — focus area or question (e.g. "small-model tool-calling patterns", "competitor auth approaches"). If the user did not give one, ask.
+
+## Step 1 — Preconditions
+
+1. Read active spec: `cat spec/.current-spec`.
+2. Verify requirements approved: check `spec/<spec>/.requirements-approved` exists. If not, tell the user to run `spec-approve` with phase `requirements` first, then stop.
+3. Read `spec/<spec>/requirements.md` fully. Extract:
+   - Vision, problem statement, goals
+   - Candidate list (from Open Questions resolution or elsewhere)
+   - Functional (F-XX) and non-functional (NF-XX) requirements — the rubric inputs
+   - Any mandated dimensions (pricing, licensing, accessibility, security, etc.) that must appear in the matrix
+   - Any explicit drops / non-goals — respect them unless research materially contradicts them
+4. If requirements are missing any of the above, write with what's there and flag the gap in Open Questions. Do not invent inputs.
+
+## Step 2 — Gather evidence
+
+Use WebSearch and WebFetch to collect primary sources. Target a mix:
+- **Official sources** — product docs, changelogs, pricing pages, release notes, repo READMEs
+- **User voice** — Reddit, HN, GitHub issues/discussions, blogs, third-party reviews
+- **Signals of weight** — upvotes, comment counts, frequency of the same ask across forums, thread age
+
+**Sourcing rules:**
+- Every non-trivial factual claim cites a primary source inline as `[anchor text](url)` at the point of the claim. Not a trailing footnote.
+- Unsourceable claims are flagged `[unsourced — verify]` or removed.
+- Do not rely on training data for facts likely to have changed (pricing, features, versions, team structure).
+- If a competitor has no public changelog, say so — don't fabricate.
+
+## Step 3 — Write research.md
+
+Create `spec/<spec>/research.md` (sibling to `requirements.md`; NOT `design.md`).
+
+The 10-section structure, quality rules, and section-by-section guidance live in `references/research-structure.md` and `references/quality-rules.md`. Read those before drafting. Never skip Executive Summary, Ethos, Candidate Critiques, Dispositions, or References.
+
+## Step 4 — Post-write summary
+
+After writing, report:
+- Number of sources cited (roughly)
+- Number of actors / products in the landscape
+- Number of signal clusters identified
+- Candidates critiqued (split: from requirements / surfaced by research)
+- Disposition distribution: X pillars, Y features, Z deferred, W dropped
+- Follow-up specs recommended (count)
+- Any Open Questions flagged for user resolution
+
+Then recommend:
+- `spec-review` with phase `research` for a self-audit
+- `spec-approve` with phase `research` when ready
+- After approval, run `spec-new` for each surviving candidate
+
+## Iteration
+
+Research is iterative. On rerun:
+- Preserve the existing `research.md` structure
+- Update evidence and dispositions in place
+- Add a `### Changelog` appendix at the bottom (date, what changed, why)
+- If rerun reveals the original requirements are wrong, do NOT reshape research to match — flag in Open Questions and let the user decide
+
+## Files
+
+- `references/research-structure.md` — the 10-section template, in full, with per-section formatting
+- `references/quality-rules.md` — sourcing, analytical rigor, bias awareness, readability, length
+
+## References
+
+### quality-rules
+
+# research.md — quality rules
+
+## Sourcing
+
+- Every non-trivial factual claim cites a primary source inline as `[text](url)` at the claim, not as a trailing footnote.
+- Unsourceable claims are flagged `[unsourced — verify]`, not stated.
+- Sources are primary (docs, changelogs, pricing pages, issue/thread URLs) — not LLM training data.
+- Citation format is consistent throughout.
+- References section dedupes and organises all cited sources.
+
+## Analytical rigor
+
+- Same rubric for every candidate — no cherry-picking axes for preferred ideas.
+- Pillars must be distinguishing vs catalogued competitors, not generic values.
+- Anti-pillars must rule out specific behaviours, not vibes.
+- Deferred and dropped candidates get rationale equal in rigor to pursued ones.
+- Evidence, interpretation, and recommendation must be separable. A reader should be able to disagree with your interpretation while accepting your evidence.
+- No effort estimates, shipping windows, or capacity planning — those belong to follow-up specs.
+
+## Bias awareness
+
+- Acknowledge the project's own weaknesses — where it trails, where it's at parity. Do not only surface strengths.
+- Surface counter-evidence to preferred conclusions when it exists.
+- Flag subjective judgment separately from sourced signal. Phrases like "in my judgment" / "based on signals alone" are calibration, not weakness.
+- User-declared preferences in the requirements spec are **input, not finding**. Don't treat the user's gut-feel ranking as research output.
+- Acknowledge sample limitations in community-signal data.
+
+## Readability
+
+- Lead with the finding, then the evidence. Inverted pyramid.
+- Tables for comparisons, prose for judgments.
+- No filler ("it's important to note", "in conclusion", "as we can see").
+- Scannable headings.
+- Executive Summary must be usable alone in 2 minutes of reading.
+
+## Length
+
+- Match scope. A small architecture spike doesn't need a 20-page report.
+- Section targets for typical scope:
+  - Executive Summary ½–1 page
+  - Ethos 1–2 pages
+  - Landscape 2–4 pages
+  - Signals 1–2 pages
+  - Candidate Critiques variable (≈ 1 page per candidate)
+  - Dispositions 1 page
+  - Trade-offs 1 page
+  - Follow-up Specs ½ page
+  - References — as long as needed
+- When in doubt, shorter. If a section isn't producing a decision, it's padding.
+
+### research-structure
+
+# research.md — 10-section structure
+
+The standard shape. Tighten or omit sections when scope doesn't need them, but **never** skip: Executive Summary, Ethos, Candidate Critiques, Dispositions, References.
+
+The goal is a **usable report**, not a bibliography. Every section produces something decision-enabling, not just descriptive.
+
+---
+
+## 1. Executive Summary (≈ ½–1 page — standalone-readable)
+
+A reader must be able to act on this section alone. Include:
+
+- **TL;DR** — 3–5 bullets summarising the most consequential findings
+- **Ethos pillars** — names only, one line each
+- **Disposition headline** — "X pillars identified, Y features worth pursuing, Z deferred, W dropped"
+- **Follow-up specs recommended** — names only, one per line
+- **Headline tensions** — any unresolved trade-offs the reader should know before diving in
+
+Write it last, place it first.
+
+## 2. Ethos / Strategic Pillars
+
+The yardstick every candidate is measured against. Derive pillars from the requirements spec's Vision/Goals, not from the candidate list.
+
+For each pillar:
+- **Name** (short, memorable)
+- **Definition** (one line)
+- **What this means in practice** (one paragraph — give concrete examples of decisions the pillar would shape)
+- **How it distinguishes us** (one line — reference catalogued competitors, not generic values)
+
+Then, **anti-pillars** — what the project deliberately will NOT become. For each:
+- Definition (one line)
+- Specific behaviours/features it rules out (concrete, not vibes)
+- Why (tied to a pillar or ethos commitment)
+
+Pillars fail the test if they're interchangeable with any competitor's marketing copy. Push until they're genuinely distinguishing.
+
+## 3. Competitive / Environmental Landscape
+
+Shape of the space we're operating in. Two deliverables:
+
+**a) Matrix** — every actor mapped across consistent dimensions. Pull dimensions from requirements (model/tool support, pricing/license, IDE/terminal, unique differentiators) plus any axes the vision adds (e.g. cloud-locked vs local-capable, data residency, accessibility). Every cell is a judgment, not a copy-paste from marketing.
+
+**b) Per-actor commentary** — one paragraph each. Lead with differentiation vs the pillars. Not a description of the product; a judgment on where it threatens us, where we threaten it, and where we simply aren't competing.
+
+End with a **Gaps** subsection: what's missing in the landscape that we could own.
+
+## 4. Community / User Signals
+
+Counter-weight to assumption-driven design. Structure:
+
+- **Signal clusters** — group asks into themes (e.g. "users want offline workflows", "users complain about cost at scale"). NOT a flat list of individual threads.
+- **Weight per cluster** — very-frequent-repeated ask vs one-off gripe. Treat them differently.
+- **Source diversity** — signals from Reddit, HN, GitHub, and blogs each have different demographics. Note which clusters come from which sources.
+- **Sample limitations** — explicitly acknowledge what this sample is NOT representative of (e.g. enterprise procurement signals are absent from Reddit).
+- **Signals that contradict us** — surface user asks that push against the project's current direction. These are the most valuable.
+
+Cite every signal inline.
+
+## 5. Candidate Critiques
+
+Apply the rubric uniformly. Every candidate receives the same axes, evaluated the same way.
+
+**Rubric axes** — pull from requirements F-XX. Common baseline:
+- Ethos alignment — how this candidate reinforces or conflicts with each pillar
+- User impact — who benefits, by how much, what we can source as evidence
+- Competitive differentiation — does this widen or close a gap the landscape identified
+- Open questions / risks — what we genuinely don't know
+- Any domain-specific axes from the vision (e.g. local-model impact, privacy impact, cost-to-user impact)
+
+**Format per candidate:**
+
+```
+### Candidate: <name>
+
+**Description.** One paragraph on what it is.
+
+**Evidence.** What the landscape and signals say about demand / precedent / risk. Cite.
+
+**Evaluation.**
+- Ethos alignment: <one sentence per pillar>
+- User impact: <who, how much, cited evidence>
+- Competitive differentiation: <widens/closes which gap>
+- <Domain-specific axis>: <judgment>
+- Open questions / risks: <list>
+
+**Dependencies.** Does this candidate only make sense if another candidate ships too? Is it blocked by something?
+```
+
+**Research-surfaced candidates** — if the evidence reveals a candidate the requirements spec didn't list, add it here with an `[added by research]` tag. Do not silently expand scope.
+
+**Requirements-contradicted findings** — if research reveals a requirement-level assumption is wrong, do not silently reshape the research around it. Add a note in the candidate critique AND flag it in Open Questions.
+
+## 6. Dispositions
+
+The decision. One classification per candidate, in a flat table:
+
+| Candidate | Disposition | Rationale | Follow-up spec? |
+|---|---|---|---|
+| <name> | pillar / feature-worth-pursuing / deferred / dropped | 1–2 sentences tying the classification back to pillars and/or signals | name for `spec-new <name>` (or — if deferred/dropped) |
+
+**Rules:**
+- **No silent rejections.** Every candidate, including deferred and dropped, has a rationale equal in rigor to pursued ones.
+- **Deferred ≠ dropped.** Deferred means "revisit under what trigger" — state the trigger. Dropped means "won't do, won't revisit" — state why not.
+- **No effort, no timelines.** Scoping belongs to follow-up specs.
+- **Respect user-declared drops** from requirements unless research materially contradicts them. If contradicted, resurface the candidate with the contradicting evidence and propose the reader reconsiders — don't unilaterally un-drop.
+
+## 7. Taxonomy / Definitions (include only if requirements call for distinctions)
+
+Formalise distinctions the requirements spec asked for — e.g. Roadmap vs Features, core vs plugin, community vs commercial, pillar vs concrete deliverable. Include mapping rules so future work has no ambiguity. Skip if not needed.
+
+## 8. Trade-offs & Open Questions
+
+Surface what the research could NOT resolve. Two kinds:
+- **Genuine trade-offs** — mutually exclusive or tension-bearing choices (e.g. "local-first simplicity vs team-sharing power"). Frame as trade-offs, not false binaries.
+- **Open questions** — things research couldn't answer and the project must still decide. Prefix with `OQ-XX` so they're referenceable.
+
+Purpose: prevent false confidence. If the whole report sounds certain, it's lying.
+
+## 9. Follow-up Specs
+
+Handoff to implementation. For each candidate classified "pillar" or "feature-worth-pursuing":
+- Proposed spec name (lowercase, hyphen-separated, suitable for `spec-new <name>`)
+- One-line scope note — what a follow-up spec covers
+- Recommended order if dependencies exist; otherwise note "no inherent order"
+
+This is the only place sequencing appears — and only at the level of "X depends on Y", not "ship in week 3".
+
+## 10. References
+
+Consolidated, deduplicated source list. Organise by whichever dimension reads best (tier, topic, alphabetical). Every URL cited inline must appear here; nothing appears here that isn't cited inline.

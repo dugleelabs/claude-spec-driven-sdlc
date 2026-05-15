@@ -1,16 +1,36 @@
-# Claude Spec-Driven SDLC
+# AI Spec-Driven SDLC
 
 <p align="center">
   <strong>Syncs with</strong><br/>
-  <a href="#linear-setup"><img src="https://img.shields.io/badge/Linear-5E6AD2?style=for-the-badge&logo=linear&logoColor=white" alt="Linear" /></a>
-  <a href="#github-setup"><img src="https://img.shields.io/badge/GitHub_Projects-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Projects" /></a>
+  <a href="docs/project-tracker-sync.md#linear-setup"><img src="https://img.shields.io/badge/Linear-5E6AD2?style=for-the-badge&logo=linear&logoColor=white" alt="Linear" /></a>
+  <a href="docs/project-tracker-sync.md#github-setup"><img src="https://img.shields.io/badge/GitHub_Projects-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Projects" /></a>
 </p>
 
-**The future of software development isn't AI writing code for you—it's AI thinking alongside you.**
+**AI-led SDLC for any coding agent.** A model-agnostic toolkit of 12 skills that walk a developer through requirements → design → tasks → implementation, with explicit approval gates at every phase. Ships native adapters for Claude Code, OpenAI Codex CLI, and Cursor.
+
+## Supported agents
+
+Install is a single `cp` per agent. Pick your agent below; the per-agent README has the exact command.
+
+| Agent | Status | Install (project scope, run from repo root) | Adapter |
+|---|---|---|---|
+| **Claude Code** (Anthropic) | ✅ v1 | `mkdir -p .claude/skills && cp -r agents/anthropic/skills/* .claude/skills/` | [agents/anthropic](agents/anthropic/README.md) |
+| **OpenAI Codex CLI** | ✅ v1 | `mkdir -p .agents/skills && cp -r agents/openai-codex/skills/* .agents/skills/` | [agents/openai-codex](agents/openai-codex/README.md) |
+| **Cursor** | ✅ v1 (no `spec-sync`) | `mkdir -p .cursor/rules && cp agents/cursor/rules/*.mdc .cursor/rules/` | [agents/cursor](agents/cursor/README.md) |
+| Cline · Continue.dev · Windsurf | 🛠 Planned | — | Follow-up spec |
+| Gemini CLI · Aider | 🔬 Researching | — | — |
+
+Each per-agent README documents user-scope vs project-scope install, format conventions, known limitations, and maintenance notes.
+
+If your agent isn't in the matrix and you want it added, open an issue.
+
+## Why this exists
+
+**The future of software development isn't AI writing code for you — it's AI thinking alongside you.**
 
 Traditional SDLC demands extensive documentation, architecture reviews, and project management overhead. Most teams skip it. They jump straight to code, accumulate tech debt, and wonder why projects fail. The discipline exists for good reasons, but the friction is too high.
 
-**AI-led SDLC changes everything.**
+**AI-led SDLC changes this.**
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -27,91 +47,52 @@ Traditional SDLC demands extensive documentation, architecture reviews, and proj
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## The Paradigm Shift
-
-This isn't just automation—it's **augmentation**. Claude becomes your:
-
-- **Requirements Analyst**: Asks the right questions, identifies edge cases you'd miss, structures your thoughts into formal specifications
-- **Solutions Architect**: Proposes architectures, evaluates trade-offs, documents decisions with rationale
-- **Technical Writer**: Generates comprehensive documentation that stays in sync with your evolving understanding
-- **Project Manager**: Breaks work into phases, identifies dependencies, tracks progress
-- **Implementation Partner**: Executes tasks systematically while you maintain creative control
+This isn't just automation — it's **augmentation**. Your agent becomes your requirements analyst, solutions architect, technical writer, project manager, and implementation partner.
 
 **You stay in the driver's seat.** Every phase requires your explicit approval before proceeding. The AI proposes, you dispose.
 
-## Why This Matters
-
-```
-Idea → Requirements → Design → Tasks → Implementation
-        ↑              ↑         ↑         ↑
-     [Approve]     [Approve]  [Approve]  [You Code]
-```
-
-Most developers know they *should* write specs. They don't because:
-- It's tedious and time-consuming
-- Requirements feel obvious (until they're not)
-- Design docs get stale immediately
-- The overhead doesn't feel worth it for "small" features
-
-**AI-led SDLC removes these excuses.** When generating a comprehensive requirements doc takes a conversation instead of a day, you'll actually do it. When the AI remembers every decision and context from requirements through implementation, nothing gets lost.
-
-The result: **Enterprise-grade engineering discipline at startup speed.**
-
-## How It Works: Skills
-
-This toolkit ships as a set of **[Anthropic Skills](https://agentskills.io/specification)** — discrete capabilities Claude loads based on what you ask for. There are no slash commands to memorize. Describe what you want; Claude picks the right skill.
-
-| Skill | Triggers when you say... |
-|---|---|
-| `spec-new` | "create a new spec for X", "start a spec called X" |
-| `spec-requirements` | "draft requirements", "write the requirements doc" |
-| `spec-design` | "design this", "draft the design doc" |
-| `spec-research` | "do the research", "competitive scan", "evaluate candidates" |
-| `spec-tasks` | "generate tasks", "break this down" |
-| `spec-implement` | "start implementation", "begin building", "implement phase 2" |
-| `spec-approve` | "approve requirements", "approve the design" |
-| `spec-review` | "review the design", "audit the requirements" |
-| `spec-status` | "show all specs", "what's the status" |
-| `spec-switch` | "switch to spec 003", "work on the auth spec instead" |
-| `spec-sync` | "sync to Linear", "push tasks to GitHub Projects" |
-| `spec-update-task` | "mark T-12 done", "I finished the auth task" |
-
-Each phase-authoring skill (`spec-design`, `spec-tasks`, `spec-implement`, `spec-research`) checks for the previous phase's approval marker before proceeding, so the workflow can't skip steps.
-
-## Quick Start
+## Quick start
 
 ### Prerequisites
 
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) installed and configured
+- A supported coding agent installed and configured (see [Supported agents](#supported-agents))
 - Git repository for your project
 - (Optional) [GitHub CLI](https://cli.github.com/) for GitHub Projects sync
 - (Optional) [Linear API key](https://linear.app/settings/api) for Linear sync
-- (Optional) `jq` and `curl` for Linear API scripts
+- (Optional) `jq` and `curl` for the Linear sync scripts
 
-### Installation
+### Install (per agent)
+
+Clone this repo, then run the `cp` command for your agent:
 
 ```bash
-# Option 1: Clone into your existing project and install skills
-git clone https://github.com/dugleelabs/claude-spec-driven-sdlc.git .claude-sdlc
-mkdir -p .claude/skills
-cp -r .claude-sdlc/skills/spec-* .claude/skills/
-cp -r .claude-sdlc/scripts .claude/    # required for project tracker sync
-
-# Option 2: Install user-wide (all your projects)
-git clone https://github.com/dugleelabs/claude-spec-driven-sdlc.git ~/claude-spec-driven-sdlc
-mkdir -p ~/.claude/skills
-cp -r ~/claude-spec-driven-sdlc/skills/spec-* ~/.claude/skills/
-
-# Option 3: Use as a standalone spec repository
-git clone https://github.com/dugleelabs/claude-spec-driven-sdlc.git my-project-specs
-cd my-project-specs
+git clone https://github.com/dugleelabs/ai-spec-driven-sdlc.git
+cd ai-spec-driven-sdlc
 ```
 
-Claude Code auto-discovers skills from `.claude/skills/` (project) and `~/.claude/skills/` (user) on startup.
+**Claude Code:**
+```bash
+mkdir -p .claude/skills
+cp -r agents/anthropic/skills/* .claude/skills/
+```
 
-### Your First Spec
+**OpenAI Codex CLI:**
+```bash
+mkdir -p .agents/skills
+cp -r agents/openai-codex/skills/* .agents/skills/
+```
 
-Just describe what you want — Claude picks the right skill at each step:
+**Cursor:**
+```bash
+mkdir -p .cursor/rules
+cp agents/cursor/rules/*.mdc .cursor/rules/
+```
+
+For user-scope install (skills available across all your projects), see your adapter's README. The 3 per-agent READMEs are the authoritative install reference.
+
+### Your first spec
+
+Just describe what you want — your agent picks the right skill at each step:
 
 ```
 You:    Let's create a spec for user authentication.
@@ -136,7 +117,7 @@ You:    Approve tasks and let's start implementing phase 1.
         → spec-approve → spec-implement fires
 ```
 
-## The Workflow
+## The workflow
 
 ```mermaid
 flowchart TD
@@ -168,36 +149,38 @@ flowchart TD
     class branch decision;
 ```
 
-**Rounded nodes** are skills Claude invokes. **Hex gates** (`spec-approve · …`) are human checkpoints — no phase advances without one. **The diamond** is the only fork: feature specs ship code, research specs ship decisions and spawn follow-up specs.
+**Rounded nodes** are skills your agent invokes. **Hex gates** (`spec-approve · …`) are human checkpoints — no phase advances without one. **The diamond** is the only fork: feature specs ship code, research specs ship decisions and spawn follow-up specs.
 
 `spec-review` and `spec-status` can run at any time and are omitted from the main path. `spec-switch` and `spec-update-task` are housekeeping skills, also off-path.
 
-## Skills Reference
+## Skills reference
 
-| Skill | Description |
+| Skill | Triggers when you say... |
 |---|---|
-| `spec-new` | Create a new feature specification directory |
-| `spec-requirements` | Draft or revise the requirements document |
-| `spec-design` | Draft technical design (feature specs) |
-| `spec-research` | Draft research report (competitive analysis, ethos, dispositions) |
-| `spec-tasks` | Generate the implementation task list |
-| `spec-implement` | Begin or continue implementation |
-| `spec-approve` | Approve a phase (requirements \| design \| research \| tasks) |
-| `spec-review` | Self-audit a phase document and return a verdict |
-| `spec-status` | Show all specs and their progress |
-| `spec-switch` | Change the active specification |
-| `spec-update-task` | Mark a single task complete |
-| `spec-sync` | Sync approved tasks to GitHub Projects or Linear |
+| `spec-new` | "create a new spec for X", "start a spec called X" |
+| `spec-requirements` | "draft requirements", "write the requirements doc" |
+| `spec-design` | "design this", "draft the design doc" |
+| `spec-research` | "do the research", "competitive scan", "evaluate candidates" |
+| `spec-tasks` | "generate tasks", "break this down" |
+| `spec-implement` | "start implementation", "begin building", "implement phase 2" |
+| `spec-approve` | "approve requirements", "approve the design" |
+| `spec-review` | "review the design", "audit the requirements" |
+| `spec-status` | "show all specs", "what's the status" |
+| `spec-switch` | "switch to spec 003", "work on the auth spec instead" |
+| `spec-sync` | "sync to Linear", "push tasks to GitHub Projects" |
+| `spec-update-task` | "mark T-12 done", "I finished the auth task" |
 
-Full skill definitions live in [`skills/`](skills/). Each skill is a self-contained `SKILL.md` (plus optional `references/` for long-form guidance) following the [Agent Skills specification](https://agentskills.io/specification).
+Each phase-authoring skill checks for the previous phase's approval marker before proceeding, so the workflow can't skip steps.
 
-## What Gets Generated
+Skill definitions live under [`agents/`](agents/) — one folder per supported agent, each in that agent's native format. The Anthropic and Codex adapters use `SKILL.md` per the [Agent Skills specification](https://agentskills.io/specification); Cursor uses MDC rules.
+
+## What gets generated
 
 Each spec produces three documents — `requirements.md`, `design.md`, and `tasks.md` — that build on each other through the workflow phases. See [docs/generated-artifacts.md](docs/generated-artifacts.md) for full details on what each contains.
 
 ### Research specs (alternate variant)
 
-Not every spec ships code. Competitive analyses, roadmap research, strategy reviews, and architecture spikes produce **decision documents**, not implementations. For these, ask Claude for research in place of design:
+Not every spec ships code. Competitive analyses, roadmap research, strategy reviews, and architecture spikes produce **decision documents**, not implementations. For these, ask your agent for research in place of design:
 
 ```
 You:    Create a spec for evaluating local-model tooling.       → spec-new
@@ -214,44 +197,49 @@ You:    For each "pillar" and "feature worth pursuing"
 
 Research specs skip the tasks and implementation phases. `research.md` includes an executive summary, ethos pillars + anti-pillars, competitive landscape with citations, community signals, candidate critiques, dispositions (pillar / feature / deferred / dropped), and a consolidated references section. Sourcing is enforced: every non-trivial claim carries an inline citation.
 
-## Directory Structure
+## Directory structure
 
-Specs live in `spec/` with sequential IDs, skills in `skills/` (installed to `.claude/skills/`), and sync scripts in `scripts/tasks-sync/`. See [docs/directory-structure.md](docs/directory-structure.md) for the full layout.
+Specs live in `spec/`, agent adapters under `agents/<adapter>/`, and tracker-sync companion scripts under `scripts/tasks-sync/`. See [docs/directory-structure.md](docs/directory-structure.md) for the full layout.
 
-## Project Tracker Sync
+## Project tracker sync
 
-Sync your tasks to <a id="linear-setup"></a>**[Linear](docs/project-tracker-sync.md#linear-setup)** or <a id="github-setup"></a>**[GitHub Projects](docs/project-tracker-sync.md#github-setup)** for team visibility. `tasks.md` stays the source of truth — the tracker reflects its state. See [docs/project-tracker-sync.md](docs/project-tracker-sync.md) for setup, configuration, and architecture details.
+Sync your tasks to <a id="linear-setup"></a>**[Linear](docs/project-tracker-sync.md#linear-setup)** or <a id="github-setup"></a>**[GitHub Projects](docs/project-tracker-sync.md#github-setup)** for team visibility. `tasks.md` stays the source of truth — the tracker reflects its state. See [docs/project-tracker-sync.md](docs/project-tracker-sync.md) for setup, configuration, and architecture details. (Currently supported on the Anthropic and OpenAI Codex adapters; not on Cursor in v1.)
 
-## Best Practices
+## Migrating from v0.x
 
-1. **Don't skip phases** — Each phase builds context for the next. The AI's implementation quality depends on the requirements and design it has to work with. The phase-approval markers enforce this in the skills, but only if you let them.
+The v0.x layout (`skills/spec-*/`) was Claude-only. v1.0.0 reorganizes the same skill content under per-agent adapter folders. Pick the migration command for your agent and run it from the cloned repo root after `git pull`:
 
-2. **Be thorough in requirements** — This is where you teach the AI what you're building. Edge cases, error scenarios, acceptance criteria — the more you provide, the better the output.
+```bash
+# Claude Code — replaces the old user-scope install
+rm -rf ~/.claude/skills/spec-*
+cp -r agents/anthropic/skills/* ~/.claude/skills/
 
-3. **Review before approving** — Ask Claude to review the phase before approving it. The `spec-review` skill returns a verdict (`Ready` / `Needs Work` / `Major Issues`) and often catches gaps you'd miss.
+# OpenAI Codex CLI — new in v1
+mkdir -p ~/.agents/skills && cp -r agents/openai-codex/skills/* ~/.agents/skills/
 
-4. **Commit your specs** — These are valuable artifacts. They document not just *what* was built, but *why*.
+# Cursor — new in v1
+mkdir -p ./.cursor/rules && cp agents/cursor/rules/*.mdc ./.cursor/rules/
+```
 
-5. **One spec per feature** — Keep specifications focused. Scope creep in specs leads to scope creep in code.
+If you customized any `SKILL.md` before migrating, back it up first — the copy commands overwrite. See [CHANGELOG.md](CHANGELOG.md) for the full list of v1 changes.
 
-6. **Iterate on phases** — Don't feel pressured to approve immediately. Discuss, refine, and improve each phase until you're satisfied.
+## Best practices
 
-## The Vision
-
-We're at an inflection point. AI can now participate meaningfully in the entire software development lifecycle—not just code generation, but the thinking that precedes it.
-
-This toolkit is an experiment in what that collaboration looks like. It's opinionated, structured, and designed to keep humans in control while leveraging AI's ability to think through problems systematically.
-
-**The best code comes from clear thinking. AI-led SDLC makes clear thinking the default.**
+1. **Don't skip phases.** Each phase builds context for the next. The AI's implementation quality depends on the requirements and design it has to work with. The phase-approval markers enforce this in the skills, but only if you let them.
+2. **Be thorough in requirements.** This is where you teach the AI what you're building. Edge cases, error scenarios, acceptance criteria — the more you provide, the better the output.
+3. **Review before approving.** Ask your agent to review the phase before approving it. The `spec-review` skill returns a verdict (`Ready` / `Needs Work` / `Major Issues`) and often catches gaps you'd miss.
+4. **Commit your specs.** These are valuable artifacts. They document not just *what* was built, but *why*.
+5. **One spec per feature.** Keep specifications focused. Scope creep in specs leads to scope creep in code.
+6. **Iterate on phases.** Don't feel pressured to approve immediately. Discuss, refine, and improve each phase until you're satisfied.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit issues and pull requests.
+Contributions are welcome — especially new adapters. The repo is organized so that adding an agent means adding one folder under `agents/<your-agent>/` with a README and the 12 skills in that agent's native format. Open an issue first to flag the work so we don't duplicate.
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) for details.
+MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
-Built with Claude by [DugleeLabs](https://github.com/dugleelabs)
+Built for AI-led development by [DugleeLabs](https://github.com/dugleelabs).
