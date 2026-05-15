@@ -101,7 +101,18 @@ You:    Sync to GitHub Projects in your-org, project 1.
 
 ## Script Architecture
 
-All API operations are implemented as standalone bash scripts in `scripts/tasks-sync/`. The `spec-sync` skill (Claude) handles parsing, diffing, and decisions — scripts handle deterministic API calls. This saves tokens and makes operations reproducible.
+All API operations are implemented as standalone bash scripts in `scripts/tasks-sync/`. The `spec-sync` skill handles parsing, diffing, and decisions — scripts handle deterministic API calls. This saves tokens and makes operations reproducible.
+
+### Companion-scripts copy (required for user-scope installs)
+
+The skill expects `scripts/tasks-sync/<provider>/*.sh` at the **project root** of the repo you're working in. If you installed skills at **user scope** (e.g. `~/.claude/skills/` or `~/.agents/skills/`), the toolkit clone is the only place the scripts live — they need to be copied into each project where you want tracker sync:
+
+```bash
+# From the cloned toolkit repo root
+cp -r scripts/tasks-sync /path/to/your/project/scripts/
+```
+
+Project-scope installs already have the scripts inside the cloned toolkit and don't need this step. The Cursor adapter doesn't support `spec-sync` in v1, so this isn't relevant for Cursor users.
 
 ```
 scripts/tasks-sync/
@@ -133,5 +144,5 @@ The sync system is designed to be extensible. To add a new provider:
    - `create-project.sh` — create a new project
    - `create-issue.sh` — create an issue/item
    - `update-issue-state.sh` — update issue status
-2. Add provider-specific sections to `skills/spec-sync/SKILL.md` (and the relevant `references/*.md` files)
+2. Add provider-specific sections to `agents/anthropic/skills/spec-sync/SKILL.md` (and the relevant `references/*.md` files), then mirror the change into `agents/openai-codex/skills/spec-sync/` and `agents/cursor/rules/spec-sync.mdc` (re-inlining references for the Cursor copy)
 3. Add the provider option to the configuration resolution chain
