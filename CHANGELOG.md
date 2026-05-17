@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## [Unreleased]
 
+### Added
+
+- **`spec-revise` skill** (anthropic, openai-codex, cursor) — applies the fixes from a `spec-review` output file to its phase document. Prompts the user to apply all P0/P1 fixes in one pass or walk through each issue, edits the phase doc, bumps a `**Revision:** N · **Updated:** YYYY-MM-DD` header at the top of the phase doc, and flips resolved checkboxes in the review file with a `_(resolved in revision N on …)_` suffix. Triggered by phrases like "revise requirements", "apply the review fixes", "address the review feedback".
+
+### Changed
+
+- **`spec-review` now writes a persistent review file** at `spec/<spec>/reviews/<phase>-review.md` (overwriting on each run; history lives in git). The file contains the full issue list — not just the top 5 — with stable IDs (`R-01`, `R-02`, …) and unresolved checkboxes that `spec-revise` consumes. The in-chat reply is tightened to a 150–250-word summary that points at the file. Updated across all three adapters; the Cursor MDC keeps its inlined references at the bottom of the rule.
+
 ## [1.0.0] - 2026-05-16
 
 First multi-agent release. Pivots packaging from Claude-only to model-agnostic. Skill content is unchanged; the new layout and adapters are the work.

@@ -6,7 +6,7 @@
   <a href="docs/project-tracker-sync.md#github-setup"><img src="https://img.shields.io/badge/GitHub_Projects-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Projects" /></a>
 </p>
 
-**AI-led SDLC for any coding agent.** A model-agnostic toolkit of 12 skills that walk a developer through requirements → design → tasks → implementation, with explicit approval gates at every phase. Ships native adapters for Claude Code, OpenAI Codex CLI, and Cursor.
+**AI-led SDLC for any coding agent.** A model-agnostic toolkit of 13 skills that walk a developer through requirements → design → tasks → implementation, with explicit approval gates at every phase. Ships native adapters for Claude Code, OpenAI Codex CLI, and Cursor.
 
 ## Supported agents
 
@@ -102,7 +102,12 @@ You:    Draft the requirements. It uses email + password, with a TOTP option lat
         → spec-requirements fires, drafts requirements.md (asks clarifying questions)
 
 You:    Review the requirements.
-        → spec-review fires with phase=requirements, returns a verdict
+        → spec-review fires with phase=requirements, writes spec/001-…/reviews/requirements-review.md,
+          returns a verdict
+
+You:    Revise requirements with the review feedback.
+        → spec-revise fires, applies fixes to requirements.md, bumps its Revision header,
+          checks off resolved issues in the review file
 
 You:    Looks good — approve requirements.
         → spec-approve fires, sets .requirements-approved
@@ -151,7 +156,7 @@ flowchart TD
 
 **Rounded nodes** are skills your agent invokes. **Hex gates** (`spec-approve · …`) are human checkpoints — no phase advances without one. **The diamond** is the only fork: feature specs ship code, research specs ship decisions and spawn follow-up specs.
 
-`spec-review` and `spec-status` can run at any time and are omitted from the main path. `spec-switch` and `spec-update-task` are housekeeping skills, also off-path.
+`spec-review`, `spec-revise`, and `spec-status` can run at any time and are omitted from the main path. `spec-review` writes a navigable review file to `spec/<spec>/reviews/<phase>-review.md`; `spec-revise` consumes that file to apply fixes to the phase doc. `spec-switch` and `spec-update-task` are housekeeping skills, also off-path.
 
 ## Skills reference
 
@@ -165,6 +170,7 @@ flowchart TD
 | `spec-implement` | "start implementation", "begin building", "implement phase 2" |
 | `spec-approve` | "approve requirements", "approve the design" |
 | `spec-review` | "review the design", "audit the requirements" |
+| `spec-revise` | "revise requirements", "apply the review fixes", "address the review feedback" |
 | `spec-status` | "show all specs", "what's the status" |
 | `spec-switch` | "switch to spec 003", "work on the auth spec instead" |
 | `spec-sync` | "sync to Linear", "push tasks to GitHub Projects" |
@@ -190,6 +196,8 @@ You:    Approve requirements.                                   → spec-approve
 You:    Do the research.                                        → spec-research
                                                                   (produces research.md, not design.md)
 You:    Review the research.                                    → spec-review (phase=research)
+                                                                  (writes reviews/research-review.md)
+You:    Revise research with the review feedback.               → spec-revise (phase=research)
 You:    Approve research.                                       → spec-approve
 You:    For each "pillar" and "feature worth pursuing"
         in research.md, create a follow-up spec.                → spec-new (one per candidate)
@@ -227,14 +235,14 @@ If you customized any `SKILL.md` before migrating, back it up first — the copy
 
 1. **Don't skip phases.** Each phase builds context for the next. The AI's implementation quality depends on the requirements and design it has to work with. The phase-approval markers enforce this in the skills, but only if you let them.
 2. **Be thorough in requirements.** This is where you teach the AI what you're building. Edge cases, error scenarios, acceptance criteria — the more you provide, the better the output.
-3. **Review before approving.** Ask your agent to review the phase before approving it. The `spec-review` skill returns a verdict (`Ready` / `Needs Work` / `Major Issues`) and often catches gaps you'd miss.
+3. **Review before approving.** Ask your agent to review the phase before approving it. The `spec-review` skill returns a verdict (`Ready` / `Needs Work` / `Major Issues`) and writes a navigable review file at `spec/<spec>/reviews/<phase>-review.md`. Use `spec-revise` to apply the fixes — it edits the phase doc, bumps its `Revision` header, and checks off the resolved issues so each review cycle leaves an audit trail.
 4. **Commit your specs.** These are valuable artifacts. They document not just *what* was built, but *why*.
 5. **One spec per feature.** Keep specifications focused. Scope creep in specs leads to scope creep in code.
 6. **Iterate on phases.** Don't feel pressured to approve immediately. Discuss, refine, and improve each phase until you're satisfied.
 
 ## Contributing
 
-Contributions are welcome — especially new adapters. The repo is organized so that adding an agent means adding one folder under `agents/<your-agent>/` with a README and the 12 skills in that agent's native format. Open an issue first to flag the work so we don't duplicate.
+Contributions are welcome — especially new adapters. The repo is organized so that adding an agent means adding one folder under `agents/<your-agent>/` with a README and the 13 skills in that agent's native format. Open an issue first to flag the work so we don't duplicate.
 
 ## License
 

@@ -32,4 +32,5 @@ Mark a phase as approved for the active spec.
 ## Notes
 
 - Do not edit any other phase files when approving one. Approval is scoped to the named phase.
-- If the user later asks to "un-approve" or revise, tell them to edit the file directly and remove the `.X-approved` marker — there is no `spec-unapprove` skill.
+- To apply pre-approval review feedback to a Draft phase doc, use `spec-revise` — it consumes the `spec-review` output file. Do not run `spec-revise` on an already-approved phase.
+- If the user later asks to "un-approve" an approved phase, tell them to edit the file directly and remove the `.<phase>-approved` marker — there is no `spec-unapprove` skill.
