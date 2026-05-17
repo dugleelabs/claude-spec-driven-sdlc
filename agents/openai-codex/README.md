@@ -54,7 +54,7 @@ Skip this step if you don't use `spec-sync`.
 
 ## Known limitations vs canonical SDLC workflow
 
-None today. The 12 skills work identically to the Anthropic adapter.
+None today. The 13 skills work identically to the Anthropic adapter.
 
 ## Maintenance notes
 

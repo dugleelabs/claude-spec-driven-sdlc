@@ -1,6 +1,6 @@
 # Cursor adapter
 
-Adapter for [Cursor](https://cursor.com) — the AI code editor. Ships the 12 SDLC skills as Cursor [Project Rules](https://cursor.com/docs/context/rules) in MDC format.
+Adapter for [Cursor](https://cursor.com) — the AI code editor. Ships the 13 SDLC skills as Cursor [Project Rules](https://cursor.com/docs/context/rules) in MDC format.
 
 ## Official documentation
 
@@ -33,7 +33,7 @@ Re-running the command overwrites existing rule files. Cursor auto-discovers rul
 - **Frontmatter fields used in v1:**
   - `description` (required) — copied verbatim from the source `SKILL.md` so Cursor's rule-matching behaves the same way Claude Code's skill-matching does.
   - `alwaysApply: false` — Cursor loads the rule when its description matches user intent (same trigger model as Anthropic skills).
-- **Optional Cursor fields not used in v1:** `globs` (apply when files match a pattern). None of the 12 SDLC skills are file-pattern-scoped, so this stays empty.
+- **Optional Cursor fields not used in v1:** `globs` (apply when files match a pattern). None of the 13 SDLC skills are file-pattern-scoped, so this stays empty.
 - **Progressive disclosure: not supported in MDC.** The 3 long-form skills (`spec-research`, `spec-review`, `spec-sync`) inline their `references/*.md` content under a `## References` H2 section at the bottom of the MDC body. Cursor pays the full body cost on every load.
 
 ## Known limitations vs canonical SDLC workflow
