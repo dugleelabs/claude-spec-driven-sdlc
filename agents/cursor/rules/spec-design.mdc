@@ -5,47 +5,69 @@ alwaysApply: false
 
 # spec-design
 
-Author the technical design document for the active feature spec.
+Author the technical design for the active feature spec. Act as a senior solutions architect: design the simplest system that satisfies the approved requirements, aligned with how the codebase already works.
 
-## Preconditions
+## Operating principles
+
+- **Investigate before asking.** Most design inputs live in the requirements and the target codebase. Ask the user only about decisions that are genuinely open after you've looked.
+- **Present decisions, not blank questions.** When a material choice is open (framework, storage, integration approach), offer 2–3 options with trade-offs and a recommendation — in one batched message. Decisions the existing stack already dictates: just decide and record the rationale.
+- **MVP first.** Design for the P0 requirements. Note how the design can evolve in Future Considerations instead of building speculative capacity now. Every piece of complexity must be traceable to a requirement ID.
+- **Right-size the document.** Include a section only when it applies. Where it doesn't (e.g. API Design for a CLI tool), keep the heading with one line: `Not applicable — <reason>`. Never fabricate boilerplate to fill a template.
+
+## Step 1 — Preconditions
 
 1. Read active spec: `cat spec/.current-spec`.
-2. Verify requirements are approved: check that `spec/<spec>/.requirements-approved` exists.
-   - If not, tell the user: "Requirements are not approved. Run the `spec-approve` skill with phase `requirements` first." Then stop.
-3. Read `spec/<spec>/requirements.md` fully to understand what is being designed.
+2. Verify requirements are approved: `spec/<spec>/.requirements-approved` exists. If not, tell the user: "Requirements are not approved. Run the `spec-approve` skill with phase `requirements` first." Then stop.
+3. Read `spec/<spec>/requirements.md` fully — the P0 set defines what the design must satisfy.
 4. Read `spec/<spec>/README.md` for spec context.
 
-## Steps
+## Step 2 — Discover the technical landscape
 
-1. If `spec/<spec>/design.md` already exists, read it and make targeted edits via Edit. Do not rewrite blindly.
-2. If it does not exist, create `spec/<spec>/design.md` with these sections:
-   - **Status** — `Draft`
-   - **Architecture Overview** — high-level system diagram (ASCII or mermaid)
-   - **Component Breakdown** — major components, responsibilities, boundaries
-   - **Data Flow** — how data moves through the system
-   - **Technology Stack** — choices with rationale tied back to requirements
-   - **Data Model** — schemas, entities, relationships (ERD where helpful)
-   - **API Design** — endpoints, request/response shapes, auth, errors, versioning
-   - **Security** — threat model, auth/authz, data protection, input sanitization, secrets
-   - **Performance & Scalability** — targets, caching, scaling plan
-   - **Reliability** — error handling, logging/monitoring, recovery
-   - **Deployment Architecture**
-   - **Technical Risks & Mitigations**
-3. If any architectural or technology decisions are unclear from requirements, ASK before writing — do not invent.
-4. Use ASCII art or mermaid for diagrams.
-5. After writing, recommend:
-   - `spec-review` with phase `design` for a self-audit
-   - `spec-approve` with phase `design` when ready
-   - Then `spec-tasks` to decompose into tasks
+1. **Explore the target codebase(s).** Architecture and layering, frameworks and versions (from dependency manifests), how similar features are already built, test and deployment setup. Prefer extending existing patterns over introducing new technology — consistency is a design feature.
+2. **Research before proposing.** For any technology you'd introduce or whose current state matters (versions, maturity, licensing, hosting limits), do a quick web check so your options are current, not remembered.
+3. **Sort the decisions.** Split into: (a) dictated by requirements or the existing stack — decide and record; (b) genuinely open — prepare options.
+
+## Step 3 — Settle open decisions
+
+If any material decisions are open, present them to the user now in one batched message — each with 2–3 options, one-line trade-offs, and your recommendation. Wait for answers before writing. If nothing is open, say what you decided and why, and proceed.
+
+## Step 4 — Write or revise design.md
+
+If `spec/<spec>/design.md` exists: read it and apply targeted edits — do not rewrite blindly.
+
+If it does not exist, create it with this structure:
+
+- **Header** — `# Design — <spec-id>` followed by `**Status:** Draft · **Created:** <YYYY-MM-DD>`
+- **Overview** — 3–5 sentences: what is being built and the architectural approach in plain words.
+- **Architecture** — a diagram (mermaid or ASCII) plus a component breakdown: each component's responsibility and boundary, and where it lives in the existing codebase.
+- **Design Decisions** — the record that outlives the chat: for each material decision, the options considered, the choice, and why (one short entry each — a table works well).
+- **Data Model** — entities, schemas, relationships (ERD where helpful), validation rules, migration approach if data exists. *(if applicable)*
+- **API & Interfaces** — endpoints or module contracts: request/response shapes, auth, error semantics, versioning stance. *(if applicable)*
+- **Data Flow** — the key user/system flows end to end, referencing the components above.
+- **Security** — the threat surface this feature actually has: auth/authz, input validation, data protection, secrets handling. Not generic OWASP boilerplate.
+- **Performance** — concrete, MVP-realistic targets for the dimensions that matter; caching or optimization only where a requirement demands it.
+- **Reliability & Operations** — error handling strategy, logging/monitoring, deployment shape, rollback.
+- **Future Considerations** — what the MVP defers (from requirements' Future Iterations plus design-level deferrals) and how the current design leaves the door open.
+- **Risks & Mitigations** — technical risks with a concrete mitigation or an explicit acceptance.
 
 ## Quality bar
 
-- Every technology choice has a justification.
-- Every external dependency or integration is explicit.
-- The threat model addresses the actual surface area, not generic OWASP boilerplate.
-- Performance targets are numeric, not "fast".
+- Every technology choice is justified against a requirement or an existing codebase convention — no résumé-driven design.
+- The design is the simplest one that satisfies every P0 requirement; anything beyond that cites the requirement that demands it.
+- Performance and reliability targets are numeric, not "fast" or "robust".
+- Sections marked not-applicable carry a reason.
+- A competent developer who never saw this conversation could implement from this document alone.
+
+## Step 5 — Hand off
+
+Report the file path, the open decisions you settled (and how), and any assumptions needing confirmation. Recommend:
+
+- `spec-review` with phase `design` for a self-audit
+- `spec-approve` with phase `design` when ready
+- Then `spec-tasks` to decompose into tasks
 
 ## Notes
 
-- Use the Write tool for creation, Edit for revisions.
+- Create new files fresh; revise existing ones with targeted edits.
 - This skill is for code-producing specs only. Research specs use `spec-research`.
+- Do not approve the phase from this skill.

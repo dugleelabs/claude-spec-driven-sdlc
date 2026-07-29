@@ -2,34 +2,29 @@
 
 ## Structure
 - [ ] **Task Breakdown**: All work decomposed into actionable tasks
-- [ ] **Phase Organization**: Tasks grouped by phase (Foundation, Core, Testing, Deployment)
-- [ ] **Granularity**: Tasks are appropriately sized (not too large, not too small)
-- [ ] **Dependencies**: Task dependencies clearly mapped
+- [ ] **Phase Organization**: Tasks grouped into phases that fit the work
+- [ ] **Walking Skeleton**: Phase 1 ends in a runnable end-to-end slice; each later phase ends with something demonstrable
+- [ ] **Granularity**: Tasks are single-sitting sized (S/M); anything larger is split
+- [ ] **Dependencies**: Non-obvious task dependencies mapped
 
-## Completeness
-- [ ] **Requirements Coverage**: All requirements have corresponding tasks
-- [ ] **Design Implementation**: All design components have implementation tasks
-- [ ] **Testing Tasks**: Unit, integration, E2E testing tasks included
-- [ ] **Documentation Tasks**: API docs, user docs, README updates included
-- [ ] **Deployment Tasks**: CI/CD, environment setup, release tasks included
+## Completeness & Traceability
+- [ ] **Traceability table**: Every F-XX and NF-XX maps to the task IDs that implement and verify it
+- [ ] **Design Coverage**: All design components have implementation tasks
+- [ ] **Testing Tasks**: Testing lives inside each phase next to the code it verifies, not in a trailing phase
+- [ ] **Documentation Tasks**: API docs, user docs, README updates explicit
+- [ ] **Release Tasks**: CI/CD, environment setup, release tasks included where applicable
+- [ ] **No orphan tasks**: Every task traces to a requirement, design element, or engineering hygiene — nothing "just in case"
 
 ## Quality Criteria
-- [ ] **Actionable**: Each task has clear done criteria
-- [ ] **Specific**: Tasks describe concrete deliverables
-- [ ] **Independent**: Tasks can be worked on with minimal blocking
-- [ ] **Testable**: Each task has verification steps
+- [ ] **Done criteria**: Each parent task carries an observable `Done when:` line
+- [ ] **Specific**: Tasks describe concrete deliverables, with affected files/areas noted where known
+- [ ] **Independent**: Tasks can be worked with minimal blocking
 
 ## Risk & Edge Cases
 - [ ] **Error Handling**: Tasks for error scenarios included
 - [ ] **Edge Cases**: Tasks for boundary conditions included
-- [ ] **Security Tasks**: Security implementation and testing tasks present
-- [ ] **Performance Tasks**: Performance optimization and testing tasks included
-
-## Implementation Order
-- [ ] **Foundation First**: Infrastructure and setup tasks come first
-- [ ] **Incremental Value**: Each phase delivers testable functionality
-- [ ] **Critical Path**: Critical path tasks identified
-- [ ] **Parallel Work**: Tasks that can be parallelized are identified
+- [ ] **Risk Mitigation**: Each active design risk has a task in the earliest phase it can be addressed
+- [ ] **Security & Performance**: Implementation and verification tasks present where requirements demand them
 
 ## Formatting (required for tracker sync)
 - [ ] Parent tasks use `- [ ] **T-XX: Title**` format
