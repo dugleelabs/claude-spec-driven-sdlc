@@ -5,15 +5,16 @@ description: Begin or continue implementation of an approved spec's tasks — se
 
 # spec-implement
 
-Drive implementation of the active spec's task list across target repositories.
+Drive implementation of the active spec's task list across target repositories. Act as a senior developer pairing with a tester: follow the codebase's conventions, verify each task before marking it done, and keep the task list truthful.
 
 ## Preconditions
 
 1. Read active spec: `cat spec/.current-spec`.
 2. Verify tasks approved: check that `spec/<spec>/.tasks-approved` exists.
    - If not, tell the user: "Tasks are not approved. Run the `spec-approve` skill with phase `tasks` first." Then stop.
-3. Read `spec/<spec>/requirements.md` to identify target repositories.
-4. Read `spec/<spec>/tasks.md` to load the task list.
+3. Read `spec/<spec>/requirements.md` to identify target repositories and acceptance criteria.
+4. Read `spec/<spec>/design.md` — the architecture, decisions, and contracts you are implementing against.
+5. Read `spec/<spec>/tasks.md` to load the task list.
 
 ## Step 1 — Identify target repositories
 
@@ -43,7 +44,11 @@ If no repositories are referenced, ask the user where implementation should happ
 - If creating new, ask whether to branch from current or from main, and how to handle any uncommitted changes (stash / commit-and-push).
 - Create the branch accordingly.
 
-## Step 3 — Status display
+## Step 3 — Orient in the codebase
+
+Before the first task in each repo, spend a few minutes orienting: how the code is laid out, naming and error-handling conventions, how tests are written and run (test command, framework), and any lint/format tooling. Match what you find — implementation should look like it was written by the team.
+
+## Step 4 — Status display
 
 Show the user:
 - Spec ID and name
@@ -54,22 +59,22 @@ Show the user:
 
 If the user gave a phase argument (e.g. "phase 2"), focus on that phase only.
 
-## Step 4 — Work through tasks
+## Step 5 — Work through tasks
 
 For each task in order within the current phase:
 
-1. Show the task details and any subtasks.
-2. Identify which target repository the task affects.
-3. Implement the task in that repository.
-4. After completing, update `tasks.md` in the SPEC repo: flip `- [ ]` to `- [x]` (use Edit, do not rewrite the whole file).
-5. Suggest committing in the target repo when a logical unit of work is done.
-6. Move to the next task.
+1. Show the task, its subtasks, and its `Done when:` criterion. Re-read the design section it implements.
+2. Identify which target repository the task affects and locate the relevant code area.
+3. Implement the task following the conventions found in Step 3.
+4. Verify: add or update tests for the change, run the test suite (and lint if configured), and check the task's done criterion holds. If verification fails, fix before proceeding — do not mark a failing task done.
+5. Update `tasks.md` in the SPEC repo: flip `- [ ]` to `- [x]` (use Edit, do not rewrite the whole file).
+6. Suggest committing in the target repo when a logical unit of work is done, with a message referencing the task ID.
+7. Move to the next task.
 
 ## Guidelines
 
 - Work tasks sequentially within a phase. Complete Phase N before starting Phase N+1.
-- Update checkboxes IMMEDIATELY after each task completes — do not batch updates.
-- Commit in the target repo with descriptive messages tied to the task ID where possible.
+- Update checkboxes IMMEDIATELY after each task verifies — do not batch updates, and never flip a checkbox on unverified work.
 - If blocked, note the blocker in tasks.md (a sub-bullet under the task) and move on.
 - If the user is using a tracker, the `spec-update-task` skill (or `spec-sync`) propagates checkbox changes.
 
@@ -77,3 +82,4 @@ For each task in order within the current phase:
 
 - Keep spec repo and target repos in sync; don't let task-completion drift from actual code state.
 - If a task reveals the design was wrong, stop and surface it — don't silently reshape the work. The user may need to revise the design.
+- Prefer the simplest implementation that satisfies the task's done criterion — MVP discipline applies to code, not just documents.

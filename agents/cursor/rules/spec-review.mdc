@@ -103,49 +103,51 @@ Target **150–250 words**. Do NOT repeat the file. Structure:
 
 # Design review checklist
 
+Sections a design legitimately marks `Not applicable — <reason>` should be scored not-applicable here, provided the reason holds.
+
+## Fit & Simplicity
+- [ ] **MVP-first**: The design is the simplest that satisfies every P0 requirement; extra complexity cites the requirement demanding it
+- [ ] **Codebase alignment**: Design extends existing patterns and stack; new technology is justified, not résumé-driven
+- [ ] **Right-sized document**: Inapplicable sections carry a reason instead of fabricated boilerplate
+- [ ] **Design Decisions recorded**: Material choices list options considered, the choice, and why
+- [ ] **Future Considerations**: Deferred capability is noted, with how the design leaves the door open
+
 ## Architecture
-- [ ] **Architecture Overview**: High-level system diagram provided
-- [ ] **Component Breakdown**: All major components identified and explained
-- [ ] **Data Flow**: Clear data flow between components
-- [ ] **Technology Stack**: All technologies justified with rationale
+- [ ] **Overview & diagram**: High-level system diagram provided
+- [ ] **Component Breakdown**: All major components identified with responsibilities and boundaries
+- [ ] **Data Flow**: Key flows traced end to end across the components
 - [ ] **Integration Points**: External systems and APIs documented
 
 ## Data Model
 - [ ] **Schema Design**: Database schema / data models defined
 - [ ] **Entity Relationships**: Clear ERD or relationship documentation
 - [ ] **Data Validation**: Input validation rules specified
-- [ ] **Data Migration**: Migration strategy if applicable
+- [ ] **Data Migration**: Migration strategy if existing data is affected
 
-## API Design
-- [ ] **Endpoint Specifications**: All endpoints documented
+## API & Interfaces
+- [ ] **Contract Specifications**: Endpoints or module contracts documented
 - [ ] **Request/Response Formats**: Clear schemas defined
 - [ ] **Authentication/Authorization**: Auth flow documented
 - [ ] **Error Handling**: Error codes and messages specified
-- [ ] **Versioning Strategy**: API versioning approach defined
+- [ ] **Versioning Strategy**: Approach defined where consumers exist
 
 ## Security
-- [ ] **Threat Model**: Security threats identified
-- [ ] **Authentication**: Auth mechanism properly designed
-- [ ] **Authorization**: Access control rules defined
-- [ ] **Data Protection**: Encryption at rest and in transit
-- [ ] **Input Sanitization**: XSS, SQL injection prevention addressed
+- [ ] **Threat Model**: Addresses the actual surface of this feature, not generic boilerplate
+- [ ] **Authentication & Authorization**: Mechanisms and access rules defined
+- [ ] **Data Protection**: Encryption at rest and in transit where warranted
+- [ ] **Input Sanitization**: Injection/XSS prevention addressed for exposed inputs
 - [ ] **Secrets Management**: How secrets / keys are handled
 
-## Performance & Scalability
-- [ ] **Performance Targets**: Response time, throughput defined
-- [ ] **Caching Strategy**: Caching approach documented
-- [ ] **Scalability Plan**: Horizontal/vertical scaling addressed
-- [ ] **Database Optimization**: Indexing, query optimization considered
-
-## Reliability
+## Performance & Reliability
+- [ ] **Performance Targets**: Numeric and MVP-realistic, for dimensions that matter
+- [ ] **Caching/Optimization**: Present only where a requirement demands it
 - [ ] **Error Handling**: Graceful degradation strategy
 - [ ] **Logging & Monitoring**: Observability approach defined
-- [ ] **Disaster Recovery**: Backup and recovery plan
-- [ ] **Health Checks**: System health monitoring
+- [ ] **Deployment & Rollback**: Deployment shape and recovery path described
 
 ## Technical Risks
 - [ ] **Risks Identified**: Technical risks documented
-- [ ] **Mitigations**: Risk mitigation strategies defined
+- [ ] **Mitigations**: Each risk has a concrete mitigation or explicit acceptance
 - [ ] **Dependencies**: Third-party dependency risks assessed
 
 ### requirements-checklist
@@ -153,26 +155,33 @@ Target **150–250 words**. Do NOT repeat the file. Structure:
 # Requirements review checklist
 
 ## Completeness
-- [ ] **Feature Overview**: Clear problem statement and goals defined
-- [ ] **Current State**: Tech stack, existing systems, security posture documented
-- [ ] **User Stories**: All user stories have acceptance criteria
-- [ ] **Functional Requirements**: Prioritized (P0/P1/P2) with clear descriptions
-- [ ] **Non-Functional Requirements**: Performance, security, scalability addressed
-- [ ] **Constraints & Assumptions**: Limitations clearly stated
-- [ ] **Out of Scope**: Boundaries explicitly defined
+- [ ] **Summary**: Clear problem statement — the problem, who has it, what the MVP delivers
+- [ ] **Context & Current State**: Grounded in actual repo/system facts (stack, relevant modules, integrations), not guesses
+- [ ] **Goals & Non-Goals**: Both present; non-goals guard against scope creep
+- [ ] **User Stories**: All user stories have IDs and attached acceptance criteria
+- [ ] **Functional Requirements**: Prioritized (P0/P1/P2) with unique IDs and clear descriptions
+- [ ] **Non-Functional Requirements**: Only relevant dimensions, each with a concrete MVP-realistic value (not aspirational boilerplate)
+- [ ] **Constraints & Assumptions**: Limitations stated; unconfirmed assumptions marked
+- [ ] **Out of Scope & Future Iterations**: Deferred capabilities listed with one-line reasons
 - [ ] **Success Metrics**: Measurable outcomes specified
-- [ ] **Open Questions**: All critical questions resolved or tracked
+- [ ] **Open Questions**: Each tracked with an ID, what unblocks it, and who decides
 
 ## Quality
 - [ ] Requirements are testable and verifiable
 - [ ] No ambiguous language (avoid "should", "might", "could")
 - [ ] Each requirement has a unique identifier
 - [ ] Dependencies between requirements identified
-- [ ] Edge cases and error scenarios considered
+- [ ] Edge cases and error scenarios explicit, not implied
+- [ ] Plain professional language — readable by someone joining the project cold
+
+## MVP fit
+- [ ] The P0 set alone describes a shippable product
+- [ ] No requirement exists only to sound thorough — everything changes what gets built
+- [ ] Deferred ideas are recorded in Future Iterations, not silently dropped
 
 ## Stakeholder Alignment
 - [ ] Business objectives clearly tied to requirements
-- [ ] User personas and journeys well-defined
+- [ ] Target users and their journeys well-defined
 - [ ] Acceptance criteria agreed upon
 
 ### research-checklist
@@ -218,34 +227,29 @@ Target **150–250 words**. Do NOT repeat the file. Structure:
 
 ## Structure
 - [ ] **Task Breakdown**: All work decomposed into actionable tasks
-- [ ] **Phase Organization**: Tasks grouped by phase (Foundation, Core, Testing, Deployment)
-- [ ] **Granularity**: Tasks are appropriately sized (not too large, not too small)
-- [ ] **Dependencies**: Task dependencies clearly mapped
+- [ ] **Phase Organization**: Tasks grouped into phases that fit the work
+- [ ] **Walking Skeleton**: Phase 1 ends in a runnable end-to-end slice; each later phase ends with something demonstrable
+- [ ] **Granularity**: Tasks are single-sitting sized (S/M); anything larger is split
+- [ ] **Dependencies**: Non-obvious task dependencies mapped
 
-## Completeness
-- [ ] **Requirements Coverage**: All requirements have corresponding tasks
-- [ ] **Design Implementation**: All design components have implementation tasks
-- [ ] **Testing Tasks**: Unit, integration, E2E testing tasks included
-- [ ] **Documentation Tasks**: API docs, user docs, README updates included
-- [ ] **Deployment Tasks**: CI/CD, environment setup, release tasks included
+## Completeness & Traceability
+- [ ] **Traceability table**: Every F-XX and NF-XX maps to the task IDs that implement and verify it
+- [ ] **Design Coverage**: All design components have implementation tasks
+- [ ] **Testing Tasks**: Testing lives inside each phase next to the code it verifies, not in a trailing phase
+- [ ] **Documentation Tasks**: API docs, user docs, README updates explicit
+- [ ] **Release Tasks**: CI/CD, environment setup, release tasks included where applicable
+- [ ] **No orphan tasks**: Every task traces to a requirement, design element, or engineering hygiene — nothing "just in case"
 
 ## Quality Criteria
-- [ ] **Actionable**: Each task has clear done criteria
-- [ ] **Specific**: Tasks describe concrete deliverables
-- [ ] **Independent**: Tasks can be worked on with minimal blocking
-- [ ] **Testable**: Each task has verification steps
+- [ ] **Done criteria**: Each parent task carries an observable `Done when:` line
+- [ ] **Specific**: Tasks describe concrete deliverables, with affected files/areas noted where known
+- [ ] **Independent**: Tasks can be worked with minimal blocking
 
 ## Risk & Edge Cases
 - [ ] **Error Handling**: Tasks for error scenarios included
 - [ ] **Edge Cases**: Tasks for boundary conditions included
-- [ ] **Security Tasks**: Security implementation and testing tasks present
-- [ ] **Performance Tasks**: Performance optimization and testing tasks included
-
-## Implementation Order
-- [ ] **Foundation First**: Infrastructure and setup tasks come first
-- [ ] **Incremental Value**: Each phase delivers testable functionality
-- [ ] **Critical Path**: Critical path tasks identified
-- [ ] **Parallel Work**: Tasks that can be parallelized are identified
+- [ ] **Risk Mitigation**: Each active design risk has a task in the earliest phase it can be addressed
+- [ ] **Security & Performance**: Implementation and verification tasks present where requirements demand them
 
 ## Formatting (required for tracker sync)
 - [ ] Parent tasks use `- [ ] **T-XX: Title**` format

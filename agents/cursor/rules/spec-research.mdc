@@ -32,6 +32,7 @@ Research specs skip `spec-tasks` and `spec-implement`. The handoff to implementa
    - Any mandated dimensions (pricing, licensing, accessibility, security, etc.) that must appear in the matrix
    - Any explicit drops / non-goals — respect them unless research materially contradicts them
 4. If requirements are missing any of the above, write with what's there and flag the gap in Open Questions. Do not invent inputs.
+5. If the research scope itself is ambiguous (unclear candidate list, undefined evaluation dimensions, fuzzy question), do a first quick pass of searching to understand the option space, then ask the user 2–4 batched questions with concrete options and a recommended default. Do not start the full evidence sweep on a scope you had to guess.
 
 ## Step 2 — Gather evidence
 
